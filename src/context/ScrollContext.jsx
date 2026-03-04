@@ -6,7 +6,7 @@ export function ScrollProvider({ children }) {
   const scrollContainerRef = useRef(null);
   const scrollYRef = useRef(0);
   const scrollHeightRef = useRef(3000);
-  const scrollClientHeightRef = useRef(window.innerHeight);
+  const scrollClientHeightRef = useRef(typeof window !== 'undefined' ? window.innerHeight : 800);
   const [scrollContainer, setScrollContainer] = useState(null);
 
   const setScrollContainerElement = useCallback((el) => {
