@@ -25,6 +25,9 @@ yarn-error.log*
 .env.local
 .env.*.local
 
+# Tokens & credentials
+*.tokens.json
+
 # Dependencies
 node_modules/
 
