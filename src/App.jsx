@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function Landing() {
   return (
-    <div className="min-h-screen bg-[#09090B] text-white flex flex-col items-center justify-center p-8">
-      <h1 className="text-5xl font-bold mb-4">Obula</h1>
-      <p className="text-xl text-white/70 mb-8">AI Clip Generator</p>
-      <Link to="/upload" className="px-6 py-3 bg-[#C9A962] text-black font-semibold rounded-xl">
+    <div style={{minHeight: '100vh', background: '#09090B', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem'}}>
+      <h1 style={{fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem'}}>Obula</h1>
+      <p style={{fontSize: '1.25rem', opacity: 0.7, marginBottom: '2rem'}}>AI Clip Generator</p>
+      <Link to="/upload" style={{padding: '0.75rem 1.5rem', background: '#C9A962', color: 'black', fontWeight: 600, borderRadius: '0.75rem', textDecoration: 'none'}}>
         Get Started
       </Link>
     </div>
@@ -15,24 +15,14 @@ function Landing() {
 
 function Upload() {
   return (
-    <div className="min-h-screen bg-[#09090B] text-white flex flex-col items-center justify-center p-8">
-      <h1 className="text-3xl font-bold mb-4">Upload</h1>
-      <Link to="/" className="text-[#C9A962]">← Back</Link>
+    <div style={{minHeight: '100vh', background: '#09090B', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem'}}>
+      <h1 style={{fontSize: '1.875rem', fontWeight: 'bold', marginBottom: '1rem'}}>Upload</h1>
+      <Link to="/" style={{color: '#C9A962', textDecoration: 'none'}}>← Back</Link>
     </div>
   );
 }
 
 export default function App() {
-  const [mounted, setMounted] = useState(false);
-  
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <div className="min-h-screen bg-[#09090B]" />;
-  }
-
   return (
     <BrowserRouter>
       <Routes>
