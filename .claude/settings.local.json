@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tail:*)",
+      "Bash(source venv/bin/activate && python -c \"from audio_separator.separator import Separator; print\\('audio-separator OK'\\)\" 2>&1)",
+      "Bash(source venv/bin/activate && python -c \"\nimport sys; sys.path.insert\\(0, '.'\\)\nfrom color_grade import build_lut_filter_complex\nprint\\('color_grade OK'\\)\nfrom red_hook_captions import build_hook_phrases, draw_red_hook_text_opencv\nprint\\('red_hook_captions OK'\\)\nfrom debug_tracer import CaptionTracer\nprint\\('debug_tracer OK'\\)\nsys.path.insert\\(0, 'noise_isolation_integration'\\)\nfrom noise_isolator import NoiseIsolator\nprint\\('noise_isolator OK'\\)\n\" 2>&1)",
+      "Bash(source:*)",
+      "Bash(wc:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(sips:*)",
+      "WebSearch"
+    ]
+  }
+}

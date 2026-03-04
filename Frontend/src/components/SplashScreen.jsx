@@ -28,14 +28,8 @@ export default function SplashScreen({ onComplete }) {
     const raysT = setTimeout(() => setShowRays(true), 300);
 
     const exitT = setTimeout(() => setExiting(true), 3200);
-    
-    // Safety fallback: force complete after 5s max
-    const forceCompleteT = setTimeout(() => {
-      onComplete();
-    }, 5000);
-    
-    return () => { clearTimeout(raysT); clearTimeout(exitT); clearTimeout(forceCompleteT); };
-  }, [onComplete]);
+    return () => { clearTimeout(raysT); clearTimeout(exitT); };
+  }, []);
 
   return (
     <AnimatePresence onExitComplete={onComplete}>
@@ -48,9 +42,6 @@ export default function SplashScreen({ onComplete }) {
           transition={{
             opacity: { duration: 0.25 },
             exit:    { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
-          }}
-          onAnimationComplete={() => {
-            if (exiting) onComplete();
           }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden select-none"
           style={{ background: '#07070A' }}
