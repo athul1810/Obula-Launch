@@ -16,7 +16,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
-    <div id="root"></div><script>setTimeout(function(){var r=document.getElementById('root');if(!r.innerHTML.trim())r.innerHTML='<h1 style="color:red">React failed to render</h1>';},3000);</script>
+    <div id="root"></div><script type="module">try{console.log('Module executing');}catch(e){document.getElementById('root').innerHTML='<h1 style=color:red>Module Error:'+e.message+'</h1>';}</script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
