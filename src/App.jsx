@@ -1,91 +1,44 @@
-import { lazy, Suspense } from 'react';
-import { LazyMotion, domAnimation } from 'framer-motion';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.jsx';
-import { ThemeProvider } from './context/ThemeContext.jsx';
-import { ScrollProvider } from './context/ScrollContext.jsx';
-import ProtectedRoute from './components/ProtectedRoute.jsx';
-import AdminRoute from './components/AdminRoute.jsx';
-import PageTransitionLayout from './components/PageTransitionLayout.jsx';
-import PageLoading from './components/PageLoading.jsx';
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-const Landing = lazy(() => import('./pages/Landing.jsx'));
-const SignUp = lazy(() => import('./pages/SignUp.jsx'));
-const ForgotPassword = lazy(() => import('./pages/ForgotPassword.jsx'));
-const ResetPassword = lazy(() => import('./pages/ResetPassword.jsx'));
-const AuthCallback = lazy(() => import('./pages/AuthCallback.jsx'));
-const Upload = lazy(() => import('./pages/Upload.jsx'));
-const Editor = lazy(() => import('./pages/Editor.jsx'));
-const Processing = lazy(() => import('./pages/Processing.jsx'));
-const Contact = lazy(() => import('./pages/Contact.jsx'));
-const Pricing = lazy(() => import('./pages/Pricing.jsx'));
-const CompleteProfile = lazy(() => import('./pages/CompleteProfile.jsx'));
-const Admin = lazy(() => import('./pages/Admin.jsx'));
-const MyVideos = lazy(() => import('./pages/MyVideos.jsx'));
+function Landing() {
+  return (
+    <div className="min-h-screen bg-[#09090B] text-white flex flex-col items-center justify-center p-8">
+      <h1 className="text-5xl font-bold mb-4">Obula</h1>
+      <p className="text-xl text-white/70 mb-8">AI Clip Generator</p>
+      <Link to="/upload" className="px-6 py-3 bg-[#C9A962] text-black font-semibold rounded-xl">
+        Get Started
+      </Link>
+    </div>
+  );
+}
+
+function Upload() {
+  return (
+    <div className="min-h-screen bg-[#09090B] text-white flex flex-col items-center justify-center p-8">
+      <h1 className="text-3xl font-bold mb-4">Upload</h1>
+      <Link to="/" className="text-[#C9A962]">← Back</Link>
+    </div>
+  );
+}
 
 export default function App() {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="min-h-screen bg-[#09090B]" />;
+  }
+
   return (
-    <>
-      <ThemeProvider>
-      <AuthProvider>
-        <ScrollProvider>
-          <LazyMotion features={domAnimation} strict>
-            <BrowserRouter>
-              <Routes>
-                <Route element={<PageTransitionLayout />}>
-                  {/* Public */}
-                  <Route index element={<Suspense fallback={<PageLoading />}><Landing /></Suspense>} />
-                  <Route path="login" element={<Navigate to="/" replace />} />
-                  <Route path="signup" element={<Suspense fallback={<PageLoading />}><SignUp /></Suspense>} />
-                  <Route path="contact" element={<Suspense fallback={<PageLoading />}><Contact /></Suspense>} />
-                  <Route path="complete-profile" element={<Suspense fallback={<PageLoading />}><CompleteProfile /></Suspense>} />
-                  <Route path="pricing" element={<Suspense fallback={<PageLoading />}><Pricing /></Suspense>} />
-                  <Route path="forgot-password" element={<Suspense fallback={<PageLoading />}><ForgotPassword /></Suspense>} />
-
-                  {/* OAuth + password reset callbacks */}
-                  <Route path="auth/callback" element={<Suspense fallback={<PageLoading />}><AuthCallback /></Suspense>} />
-                  <Route path="auth/reset-password" element={<Suspense fallback={<PageLoading />}><ResetPassword /></Suspense>} />
-
-                  {/* Protected — requires auth */}
-                  <Route path="editor" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<PageLoading />}><Editor /></Suspense>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="upload" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<PageLoading />}><Upload /></Suspense>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="upload/processing" element={<Navigate to="/upload" replace />} />
-                  <Route path="upload/processing/:jobId" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<PageLoading />}><Processing /></Suspense>
-                    </ProtectedRoute>
-                  } />
-
-                  {/* My Videos — requires auth */}
-                  <Route path="my-videos" element={
-                    <ProtectedRoute>
-                      <Suspense fallback={<PageLoading />}><MyVideos /></Suspense>
-                    </ProtectedRoute>
-                  } />
-
-                  {/* Admin — requires auth + admin role */}
-                  <Route path="admin" element={
-                    <AdminRoute>
-                      <Suspense fallback={<PageLoading />}><Admin /></Suspense>
-                    </AdminRoute>
-                  } />
-
-                  <Route path="*" element={<Navigate to="/" replace />} />
-                </Route>
-              </Routes>
-            </BrowserRouter>
-          </LazyMotion>
-        </ScrollProvider>
-      </AuthProvider>
-      </ThemeProvider>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/upload" element={<Upload />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
