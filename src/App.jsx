@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
@@ -8,7 +8,6 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import AdminRoute from './components/AdminRoute.jsx';
 import PageTransitionLayout from './components/PageTransitionLayout.jsx';
 import PageLoading from './components/PageLoading.jsx';
-import SplashScreen from './components/SplashScreen.jsx';
 
 const Landing = lazy(() => import('./pages/Landing.jsx'));
 const SignUp = lazy(() => import('./pages/SignUp.jsx'));
@@ -25,11 +24,8 @@ const Admin = lazy(() => import('./pages/Admin.jsx'));
 const MyVideos = lazy(() => import('./pages/MyVideos.jsx'));
 
 export default function App() {
-  const [splashDone, setSplashDone] = useState(false);
-
   return (
     <>
-      {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
       <ThemeProvider>
       <AuthProvider>
         <ScrollProvider>
