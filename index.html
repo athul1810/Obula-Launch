@@ -16,7 +16,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div><script>console.log('HTML loaded');window.addEventListener('load',function(){console.log('Window loaded');setTimeout(function(){var r=document.getElementById('root');console.log('Root content:',r.innerHTML.substring(0,200));},1000);});</script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
