@@ -16,7 +16,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
-    <div id="root"><h1 style="color:white;text-align:center;padding:50px;">Loading...</h1></div><script type="module">try{console.log('Module executing');}catch(e){document.getElementById('root').innerHTML='<h1 style=color:red>Module Error:'+e.message+'</h1>';}</script>
+    <div id="root"><h1 style="color:white;text-align:center;padding:50px;">Loading...</h1></div><script>setTimeout(function(){document.getElementById('root').innerHTML+='<p style=color:orange>JS is running</p>';},1000);</script><script type="module">try{console.log('Module executing');}catch(e){document.getElementById('root').innerHTML='<h1 style=color:red>Module Error:'+e.message+'</h1>';}</script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
