@@ -1,14 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import ErrorBoundary from './components/ErrorBoundary.jsx'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <ErrorBoundary>
+console.log('main.jsx loading')
+
+const root = document.getElementById('root')
+console.log('Root element:', root)
+
+try {
+  ReactDOM.createRoot(root).render(
+    <React.StrictMode>
       <App />
-    </ErrorBoundary>
-  </StrictMode>,
-)
-// Force rebuild Wed Mar  4 21:00:50 IST 2026
+    </React.StrictMode>,
+  )
+  console.log('React rendered successfully')
+} catch(e) {
+  console.error('React error:', e)
+  root.innerHTML = '<h1 style="color:red">Error: '+e.message+'</h1>'
+}
