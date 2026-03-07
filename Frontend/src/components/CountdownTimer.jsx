@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { m } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 
-// March 6th 5pm IST
-const TARGET = new Date('2026-03-06T17:00:00+05:30');
+// March 7th 2026, 9pm IST (GMT+5:30)
+const TARGET = new Date('2026-03-07T21:00:00+05:30');
 
 function useCountdown() {
   const [remaining, setRemaining] = useState(null);
@@ -31,7 +31,7 @@ function useCountdown() {
 
 function TimeSlot({ value, label }) {
   return (
-    <m.div
+    <Motion.div
       layout
       className="relative flex flex-col items-center justify-center min-w-[56px] sm:min-w-[72px] py-3 sm:py-4 px-2 sm:px-3 rounded-xl sm:rounded-2xl overflow-hidden"
       style={{
@@ -46,16 +46,23 @@ function TimeSlot({ value, label }) {
       <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#C9A962]/80 mt-0.5 sm:mt-1">
         {label}
       </span>
-    </m.div>
+    </Motion.div>
   );
 }
 
 export default function CountdownTimer() {
   const r = useCountdown();
 
-  if (!r) return null;
-
   const pad = (n) => String(n).padStart(2, '0');
+
+  // Show loading skeleton until first tick (avoids flash of nothing)
+  if (!r) {
+    return (
+      <div className="w-full flex justify-center mb-8">
+        <div className="animate-pulse rounded-2xl h-32 w-64 bg-white/5" />
+      </div>
+    );
+  }
 
   if (r.done) {
     return (
@@ -73,7 +80,7 @@ export default function CountdownTimer() {
 
   return (
     <div className="w-full flex flex-col items-center justify-center mb-8">
-      <m.div
+      <Motion.div
         className="relative rounded-2xl sm:rounded-3xl px-6 sm:px-10 py-6 sm:py-8 mb-6"
         style={{
           background: 'linear-gradient(145deg, rgba(0,0,0,0.6) 0%, rgba(15,14,12,0.85) 100%)',
@@ -96,15 +103,15 @@ export default function CountdownTimer() {
         </h2>
         <div className="flex items-center justify-center gap-2 sm:gap-4">
           {slots.map((slot, i) => (
-            <m.div key={slot.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05, duration: 0.3 }}>
+            <Motion.div key={slot.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05, duration: 0.3 }}>
               <TimeSlot value={slot.value} label={slot.label} />
-            </m.div>
+            </Motion.div>
           ))}
         </div>
         <p className="mt-4 sm:mt-5 text-center text-xs sm:text-sm font-medium tracking-wider text-white/60">
-          Launch on <span className="text-[#C9A962]">6th March</span>, <span className="text-[#C9A962]/90">5pm IST</span>
+          Launch on <span className="text-[#C9A962]">7th March 2026</span>, <span className="text-[#C9A962]/90">9pm IST (GMT+5:30)</span>
         </p>
-      </m.div>
+      </Motion.div>
     </div>
   );
 }
